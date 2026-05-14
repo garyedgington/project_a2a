@@ -1,0 +1,22 @@
+<svg width="680" height="680" viewBox="0 0 680 680" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>x402 A2A Hub icon</title>
+  <desc>Dark square icon with a central hub node connected to four outer nodes, representing the x402 A2A discovery hub</desc>
+
+  <rect width="680" height="680" rx="120" fill="#0f1117"/>
+
+  <line x1="340" y1="340" x2="180" y2="180" stroke="#2dd4bf" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+  <line x1="340" y1="340" x2="500" y2="180" stroke="#2dd4bf" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+  <line x1="340" y1="340" x2="180" y2="500" stroke="#2dd4bf" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+  <line x1="340" y1="340" x2="500" y2="500" stroke="#2dd4bf" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+
+  <circle cx="180" cy="180" r="38" fill="#1e2433" stroke="#2dd4bf" stroke-width="2.5"/>
+  <circle cx="500" cy="180" r="38" fill="#1e2433" stroke="#2dd4bf" stroke-width="2.5"/>
+  <circle cx="180" cy="500" r="38" fill="#1e2433" stroke="#2dd4bf" stroke-width="2.5"/>
+  <circle cx="500" cy="500" r="38" fill="#1e2433" stroke="#2dd4bf" stroke-width="2.5"/>
+
+  <circle cx="340" cy="340" r="72" fill="#1a2540" stroke="#2dd4bf" stroke-width="3"/>
+  <circle cx="340" cy="340" r="54" fill="#0f1117" stroke="#3b82f6" stroke-width="2"/>
+
+  <text x="340" y="330" text-anchor="middle" font-family="monospace" font-size="22" font-weight="700" fill="#2dd4bf">A2A</text>
+  <text x="340" y="356" text-anchor="middle" font-family="monospace" font-size="13" font-weight="400" fill="#3b82f6">x402</text>
+</svg>
