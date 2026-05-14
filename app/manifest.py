@@ -17,7 +17,7 @@ def build_capabilities(s: Settings) -> dict[str, Any]:
         "version": "1.0",
         "provider": "Gary Edgington",
         "description": (
-            "x402 micropayment task market — data transformation and validation pipeline. "
+            "x402 micropayment task market — data transformation, validation, and classification pipeline. "
             "Each service accepts $0.005 USDC per call via x402 v2 on Base mainnet."
         ),
         "services": [
@@ -62,6 +62,26 @@ def build_capabilities(s: Settings) -> dict[str, Any]:
                 },
                 "trial_endpoint": s.schema_checker_trial_url,
             },
+            {
+                "id": "classifier",
+                "name": "Content Classifier",
+                "description": (
+                    "Classifies text or JSON input into a label with a confidence score using Claude AI. "
+                    "Supports five presets: sentiment, topic, intent, urgency, and custom taxonomies. "
+                    "Returns a ranked label list and optional reasoning."
+                ),
+                "endpoint": f"{s.classifier_url}/v1/classify",
+                "method": "POST",
+                "payment": {
+                    "scheme": "x402",
+                    "version": 2,
+                    "network": "eip155:8453",
+                    "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+                    "price_usd": 0.005,
+                },
+                "trial_endpoint": s.classifier_trial_url,
+                "supported_presets": ["sentiment", "topic", "intent", "urgency", "custom"],
+            },
         ],
     }
 
@@ -78,6 +98,10 @@ def build_well_known(s: Settings) -> dict[str, Any]:
             {
                 "endpoint": f"{s.schema_checker_url}/v1/schema-check",
                 "description": "JSON Schema validation with repair suggestions",
+            },
+            {
+                "endpoint": f"{s.classifier_url}/v1/classify",
+                "description": "AI-powered content classification — sentiment, topic, intent, urgency, or custom taxonomy",
             },
         ],
     }
@@ -110,6 +134,12 @@ Validates JSON payloads against JSON Schema Draft 7.
 Returns {{ valid, errors[], suggested_payload }} with optional repair suggestions.
 Trial (free, 32KB limit): {s.schema_checker_trial_url}
 
+### Content Classifier
+POST {s.classifier_url}/v1/classify
+Classifies text or JSON input using Claude AI. Presets: sentiment, topic, intent, urgency, custom.
+Returns label, confidence score, ranked label list, and optional reasoning.
+Trial (free, 4KB limit, sentiment/topic only): {s.classifier_trial_url}
+
 ## Payment
 All paid endpoints use x402 v2 on Base mainnet (eip155:8453).
 USDC contract: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
@@ -117,5 +147,6 @@ Price: $0.005 USDC per call (5000 atomic units).
 Receiving wallet: 0x8fC4006534801c17A3368075A1Fb3b3C511EdB1F
 
 ## Pipeline
-Services chain naturally: CSV/XML/Markdown → Formatter → Schema-check (validator).
+Services chain naturally: CSV/XML/Markdown → Formatter → Schema-check → Classifier.
+Discovery: GET https://project-a2a-production.up.railway.app/v1/capabilities
 """
